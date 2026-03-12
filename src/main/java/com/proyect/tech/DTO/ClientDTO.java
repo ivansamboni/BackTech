@@ -8,7 +8,8 @@ public class ClientDTO {
     private String email;
     private String phone;
     private String address;
-    private String password; // solo para entrada, nunca se devuelve
+    private String password;
+    private String role;
 
     // Constructor vacío para deserializar JSON (registro) 👈
     public ClientDTO() {}
@@ -20,6 +21,7 @@ public class ClientDTO {
         this.address = client.getAddress();
         this.name    = client.getUser().getName();
         this.email   = client.getUser().getEmail();
+        this.role    = client.getUser().getRole().name();
     }
 
     // Getters
@@ -29,8 +31,8 @@ public class ClientDTO {
     public String getPhone()   { return phone; }
     public String getAddress() { return address; }
     public String getPassword(){ return password; }
-
-    // Setters (necesarios para deserializar el JSON entrante)
+    public String getRole() { return role; }  
+    public void setRole(String role) { this.role = role; } 
     public void setId(Long id)             { this.id = id; }
     public void setName(String name)       { this.name = name; }
     public void setEmail(String email)     { this.email = email; }

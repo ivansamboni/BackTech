@@ -1,6 +1,8 @@
 package com.proyect.tech.Model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.*;
@@ -14,24 +16,31 @@ public class Pet {
     private Long id;
 
     @Column(nullable = true, unique = true)
-    private String identifier;       // identificador único de la mascota (chip, etc.)
+    private String identifier;
+
+    @PrePersist
+    public void generateIdentifier() {
+        if (this.identifier == null) {
+            this.identifier = UUID.randomUUID().toString();
+        }
+    }
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String type;             // perro, gato, etc.
+    private String type; // perro, gato, etc.
 
     @Column(name = "year_old", nullable = true)
-    private String yearOld;          // edad
+    private String yearOld; // edad
 
     @Column(nullable = true, columnDefinition = "TEXT")
-    private String observation;      // notas clínicas, puede ser largo
+    private String observation; // notas clínicas, puede ser largo
 
     // ── Relación N a 1 con Client ─────────────────────────
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
-    private Client client;           // 👈 FK → clients.id
+    private Client client; // 👈 FK → clients.id
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -42,30 +51,71 @@ public class Pet {
     private LocalDateTime updatedAt;
 
     // ── Constructor vacío requerido por JPA ───────────────
-    public Pet() {}
+    public Pet() {
+    }
 
     // ── Getters y Setters ─────────────────────────────────
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getIdentifier() { return identifier; }
-    public void setIdentifier(String identifier) { this.identifier = identifier; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getIdentifier() {
+        return identifier;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
 
-    public String getYearOld() { return yearOld; }
-    public void setYearOld(String yearOld) { this.yearOld = yearOld; }
+    public String getName() {
+        return name;
+    }
 
-    public String getObservation() { return observation; }
-    public void setObservation(String observation) { this.observation = observation; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Client getClient() { return client; }
-    public void setClient(Client client) { this.client = client; }
+    public String getType() {
+        return type;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getYearOld() {
+        return yearOld;
+    }
+
+    public void setYearOld(String yearOld) {
+        this.yearOld = yearOld;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }

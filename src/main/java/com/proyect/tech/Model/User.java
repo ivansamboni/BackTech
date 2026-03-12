@@ -81,5 +81,13 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public Client getClient() {
+        return client;
+    }
+    
+    public void setClient(Client client) {
+        this.client = client;
+    }
  
 }

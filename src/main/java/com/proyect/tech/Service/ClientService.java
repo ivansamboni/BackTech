@@ -32,6 +32,8 @@ public class ClientService {
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
+        user.setPhone(dto.getPhone());
+        user.setAddress(dto.getAddress());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(Role.CLIENTE);
         userRepository.save(user);
@@ -83,6 +85,9 @@ public class ClientService {
         User user = client.getUser();
         if (dto.getName() != null)  user.setName(dto.getName());
         if (dto.getEmail() != null) user.setEmail(dto.getEmail());
+        if (dto.getPhone() != null)   client.setPhone(dto.getPhone());
+        if (dto.getAddress() != null) client.setAddress(dto.getAddress());
+
         userRepository.save(user);  // 👈 guarda cambios en users
 
         return new ClientDTO(clientRepository.save(client));

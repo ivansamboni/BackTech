@@ -23,13 +23,13 @@ public class ClientController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASISTENTE')")
+    //@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASISTENTE')")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(clientService.getAll());
     }
 
     @GetMapping("/me")
-    @PreAuthorize("hasRole('CLIENTE')")
+    //@PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<?> getMe(Authentication auth) {
         return ResponseEntity.ok(clientService.getByEmail(auth.getName()));
     }
